@@ -1,6 +1,6 @@
 # 11249group7
 
 Anna Stvilia:
-Joshua Wonesh:
+Member 2: Joshua Wonesh
 Ali Abuslub:
 James Blackmon:
