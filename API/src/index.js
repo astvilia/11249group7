@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
-const { MongoClient, ObjectID } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -14,7 +14,7 @@ const getUserFromToken = async (token, db) => {
   if (!token) { return null }
   const tokenData = jwt.verify(token, JWT_SECRET);
   if (!tokenData?.id) { return null }
-  return await db.collection('Users').findOne({ _id: ObjectID(tokenData.id) });
+  return await db.collection('Users').findOne({ _id: ObjectId(tokenData.id) });
 }
 
 const typeDefs = gql`
@@ -79,7 +79,7 @@ const resolvers = {
         throw new Error('Authentication error. Please sign in')
       }
       //Make so only users of the fridge can get it
-      return await db.collection('Fridges').findOne({ _id: ObjectID(id) });
+      return await db.collection('Fridges').findOne({ _id: ObjectId(id) });
     }
   },
 
@@ -135,7 +135,7 @@ const resolvers = {
         throw new Error('Authentication error. Please sign in')
       }
       //Before updating add so it checks that the user can actually do this first
-      const result = await db.collection('Fridges').updateOne({ _id: ObjectID(id) }, { $set: {  }});
+      const result = await db.collection('Fridges').updateOne({ _id: ObjectId(id) }, { $set: {  }});
       const fridge = await db.collection('Fridges').findOne({ _id: result.insertedIds['0'] });
       return fridge;
     }*/
@@ -144,15 +144,15 @@ const resolvers = {
         throw new Error('Authentication error. Please sign in')
       }
       //Before updating add so it checks that the user can actually do this first
-      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectId(fridgeId) });
       if (!fridge) {
         return null;
       }
       if (fridge.userIds.find((_userId) => _userId.toString() == userId.toString())) {
         return fridge;
       }
-      await db.collection('Fridges').updateOne({ _id: ObjectID(fridgeId) }, { $push: { userIds: ObjectID(userId) }});
-      fridge.userIds.push(ObjectID(userId));
+      await db.collection('Fridges').updateOne({ _id: ObjectId(fridgeId) }, { $push: { userIds: ObjectId(userId) }});
+      fridge.userIds.push(ObjectId(userId));
       return fridge;
     },
     deleteFridge: async (_, { id }, { db, user }) => {
@@ -160,7 +160,7 @@ const resolvers = {
         throw new Error('Authentication error. Please sign in')
       }
       //Make so only users of the fridge can delete it
-      await db.collection('Fridges').deleteOne({ _id: ObjectID(id) });
+      await db.collection('Fridges').deleteOne({ _id: ObjectId(id) });
       return true;
     },
     addItem: async (_, { name, expDate, fridgeId }, { db, user }) => {
@@ -172,7 +172,7 @@ const resolvers = {
       const newItem = {
         name,
         expDate,
-        fridgeId: ObjectID(fridgeId)
+        fridgeId: ObjectId(fridgeId)
       }
       console.log("h");
       const result = await db.collection('Items').insert(newItem);
@@ -191,7 +191,7 @@ const resolvers = {
       return Promise.all(userIds.map( (userId) => db.collection('Users').findOne({ _id: userId})));
     },
     items: async ({ _id }, _, { db }) => {
-      const result = await db.collection('Items').find({ fridgeId: ObjectID(_id) }).toArray();
+      const result = await db.collection('Items').find({ fridgeId: ObjectId(_id) }).toArray();
       console.log(result);
       return result;
     }
