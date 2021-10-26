@@ -4,5 +4,5 @@ jobs:
     docker:
       - image: alpine:3.7
     steps:
-      - run: cd API
+      - run: ls
       - run: npm start
