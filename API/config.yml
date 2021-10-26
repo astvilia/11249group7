@@ -2,11 +2,10 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:14.17.6
+      - image: alpine:3.7
     steps:
-      - run: npm install
-      - run: npm install @apollo/client graphql
-      - run: npm install mongodb dotenv
-      - run: npm install bcryptjs
-      - run: npm install jsonwebtoken
-      - run: node src/index.js
+      - run:
+          name: The First Step
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
