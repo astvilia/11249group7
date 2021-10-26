@@ -5,4 +5,4 @@ jobs:
       - image: cimg/node:14.17.6
     steps:
       - run: npm install
-      - run: npm node src/index.js
+      - run: node src/index.js
