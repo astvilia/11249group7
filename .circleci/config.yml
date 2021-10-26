@@ -5,6 +5,5 @@ jobs:
       - image: cimg/node:14.17.6
     working_directory: ~/repo
     steps:
-      - run: cd API
       - run: npm install
       - run: npm start
