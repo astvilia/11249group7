@@ -6,4 +6,4 @@ jobs:
       - image: alpine:3.7
     steps:
       - run: cd API
-        run: npm start
+      - run: npm start
