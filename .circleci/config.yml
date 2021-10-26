@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.17.6
-    working_directory: ~/repo
+    working_directory: /API
     steps:
       - run: npm install
       - run: npm start
