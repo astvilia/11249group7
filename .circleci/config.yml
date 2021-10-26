@@ -5,5 +5,5 @@ jobs:
     docker:
       - image: alpine:3.7
     steps:
-      - run: cd API
+      - run: cd 11249group7
         run: npm start
