@@ -4,7 +4,5 @@ jobs:
     docker:
       - image: cimg/node:14.17.6
     steps:
-      - run:
-          command: |
-            run: npm install
-            run: npm start
+      - run: npm install
+      - run: npm start
