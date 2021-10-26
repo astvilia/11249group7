@@ -5,7 +5,6 @@ jobs:
       - image: cimg/node:14.17.6
     steps:
       - run: npm install
-      - run: npm install -g nodemon
       - run: npm install @apollo/client graphql
       - run: npm install mongodb dotenv
       - run: npm install bcryptjs
