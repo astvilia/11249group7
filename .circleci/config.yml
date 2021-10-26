@@ -1,9 +1,13 @@
 version: 2.1
 jobs:
   build:
-    working directory: ~/11249group7
     docker:
       - image: alpine:3.7
     steps:
+<<<<<<< HEAD
       - run: cd 11249group7
         run: npm start
+=======
+      - run: ls
+      - run: npm start
+>>>>>>> cf397d89e87f2e47b17093ba2ee775898752bb1f
