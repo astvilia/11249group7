@@ -226,7 +226,6 @@ const resolvers = {
     },
     items: async ({ _id }, _, { db }) => {
       const result = await db.collection('Items').find({ fridgeId: ObjectID(_id) }).toArray();
-      console.log(result);
       return result;
     }
   },
@@ -261,6 +260,4 @@ const start = async () => {
   });
 }
 
-tdkjngkgno();eggnl;wg
-g;qwgngeqbgwq
 start();
