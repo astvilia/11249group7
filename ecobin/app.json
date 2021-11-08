@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "ecobin",
+    "slug": "ecobin",
+    "version": "0.1.0",
+    "sdkVersion": "43.0.0",
+    "platforms": [],
+    "android": {
+      "package": "com.ecobin"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ecobin"
+    }
+  }
+}
