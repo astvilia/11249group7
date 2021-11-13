@@ -21,7 +21,7 @@ const typeDefs = gql`
 
   type Query {
     myFridge: [Fridge!]!
-    getFridge(id: ID!): Fridge
+    getFridge(fridgeId: ID!): Fridge
   }
 
   type Mutation {
@@ -30,10 +30,12 @@ const typeDefs = gql`
 
     createFridge: Fridge!
     #updateFridge(id: ID!): Fridge
-    deleteFridge(id: ID!): Boolean!
+    deleteFridge(fridgeId: ID!): Boolean!
     addUserToFridge(fridgeId: ID!, userId: ID!): Fridge
 
     addItem(name: String!, expDate: String!, fridgeId: ID!): Item!
+    updateItem(itemId: ID!, newName: String!, newExpDate: String!): Item!
+    deleteItem(itemId: ID!): Boolean!
   }
 
   input SignInput {
@@ -74,12 +76,15 @@ const resolvers = {
       }
       return await db.collection('Fridges').find( { userIds: user._id }).toArray();
     },
-    getFridge: async (_, { id }, { db, user }) => {
+    getFridge: async (_, { fridgeId }, { db, user }) => {
       if (!user) {
         throw new Error('Authentication error. Please sign in')
       }
-      //Make so only users of the fridge can get it
-      return await db.collection('Fridges').findOne({ _id: ObjectID(id) });
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
+      }
+      return fridge;
     }
   },
 
@@ -143,10 +148,12 @@ const resolvers = {
       if (!user) {
         throw new Error('Authentication error. Please sign in')
       }
-      //Before updating add so it checks that the user can actually do this first
       const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
       if (!fridge) {
         return null;
+      }
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
       }
       if (fridge.userIds.find((_userId) => _userId.toString() == userId.toString())) {
         return fridge;
@@ -155,31 +162,58 @@ const resolvers = {
       fridge.userIds.push(ObjectID(userId));
       return fridge;
     },
-    deleteFridge: async (_, { id }, { db, user }) => {
+    deleteFridge: async (_, { fridgeId }, { db, user }) => {
       if (!user) {
         throw new Error('Authentication error. Please sign in')
       }
-      //Make so only users of the fridge can delete it
-      await db.collection('Fridges').deleteOne({ _id: ObjectID(id) });
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
+      }
+      await db.collection('Fridges').deleteOne({ _id: ObjectID(fridgeId) });
       return true;
     },
     addItem: async (_, { name, expDate, fridgeId }, { db, user }) => {
-      console.log("ll");
       if (!user) {
         throw new Error('Authentication error. Please sign in')
       }
-      console.log("hello");
       const newItem = {
         name,
         expDate,
         fridgeId: ObjectID(fridgeId)
       }
-      console.log("h");
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
+      }
       const result = await db.collection('Items').insert(newItem);
-      console.log("o");
       const item = await db.collection('Items').findOne({ _id: result.insertedIds['0'] });
-      console.log("e");
       return item;
+    },
+    updateItem: async (_, { itemId, newName, newExpDate }, { db, user }) => {
+      if (!user) {
+        throw new Error('Authentication error. Please sign in')
+      }
+      const item = await db.collection('Items').findOne({ _id: ObjectID(itemId) });
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(item.fridgeId) });
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
+      }
+      await db.collection('Items').updateOne({ _id: ObjectID(itemId) }, { $set: { name: newName, expDate: newExpDate }});
+      const updatedItem = await db.collection('Items').findOne({ _id: ObjectID(itemId) });
+      return updatedItem;
+    },
+    deleteItem: async (_, { itemId }, { db, user }) => {
+      if (!user) {
+        throw new Error('Authentication error. Please sign in')
+      }
+      const item = await db.collection('Items').findOne({ _id: ObjectID(itemId) });
+      const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(item.fridgeId) });
+      if (!(fridge.userIds.find((_userId) => _userId.toString() == user._id.toString()))) {
+        throw new Error('Invalid Access.');
+      }
+      await db.collection('Items').deleteOne({ _id: ObjectID(itemId) });
+      return true;
     }
   },
   User: {
@@ -192,7 +226,6 @@ const resolvers = {
     },
     items: async ({ _id }, _, { db }) => {
       const result = await db.collection('Items').find({ fridgeId: ObjectID(_id) }).toArray();
-      console.log(result);
       return result;
     }
   },
