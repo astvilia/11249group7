@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
  
 const styles = StyleSheet.create({
    iconContainer: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
        borderRadius: 5,
        marginRight: 50,
        marginBottom: 30,
-     },
-});
+   },
+})
  
 export default styles

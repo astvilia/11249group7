@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
      textAlign: 'right',
      flex: 1,
    },
- });
+ })
  
  export default styles

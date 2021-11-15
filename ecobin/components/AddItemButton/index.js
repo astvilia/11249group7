@@ -1,16 +1,14 @@
-import React from 'react'
-import { View, Text, Pressable } from 'react-native'
-import styles from './styles'
+import React from 'react';
+import { TouchableOpacity } from 'react-native'
+import styles from './styles';
 import { AntDesign } from '@expo/vector-icons';
  
-const AddItemButton = () => {
-   const onPress = () => {
-      
-   }
+//Add item button component, takes a function as an argument to determine behavior when pressed
+const AddItemButton = ({ onAdd }) => {
   return (
-           <View style={styles.iconContainer}>
-               <AntDesign name="pluscircleo" size={60} color="black" />
-           </View>
+  <TouchableOpacity style={styles.iconContainer} onPress={onAdd}>
+    <AntDesign name="pluscircleo" size={60} color="black" />
+  </TouchableOpacity>
   )
 }
 export default AddItemButton
