@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text, AppRegistry } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FridgeScreen from './screens/FridgeScreen';
@@ -8,28 +8,7 @@ import CamScreen from './screens/CamScreen';
 import { client } from './apollo';
 import { ApolloProvider } from '@apollo/client';
 
-{/*function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}*/}
-
-{/*function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
-  );
-}*/}
-
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default function App(){
   return (
@@ -45,4 +24,4 @@ export default function App(){
   );
 }
 
-AppRegistry.registerComponent('MyApplication', () => App);
+AppRegistry.registerComponent('ecoBin', () => App)
