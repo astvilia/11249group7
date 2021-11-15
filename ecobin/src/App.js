@@ -23,8 +23,10 @@ function App() {
   // What happens when we scan the bar code
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    //need to get matching data from database to display result
+    //const item = ;
     setText(data)
-    console.log('Type: ' + type + '\nData: ' + data)
+    console.log('Type: ' + type + '\nData: ' + data + '\nItem: ' + item);
   };
 
   // Check permissions and return the screens
@@ -65,8 +67,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   maintext: {
-    fontSize: 16,
-    margin: 20,
+    fontSize: 24,
+    margin: 15,
   },
   barcodebox: {
     alignItems: 'center',
