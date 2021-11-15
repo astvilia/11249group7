@@ -2,6 +2,7 @@
   "expo": {
     "name": "ecobin",
     "slug": "ecobin",
+<<<<<<< HEAD
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +28,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+=======
+    "version": "0.1.0",
+    "sdkVersion": "43.0.0",
+    "platforms": [],
+    "android": {
+      "package": "com.ecobin"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ecobin"
+>>>>>>> 113f1defe53b6bc86d01aae31d9d402c1d1645e7
     }
   }
 }
