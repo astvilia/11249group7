@@ -1,0 +1,6 @@
+module Pods_ecobin {
+  umbrella header "Pods-ecobin-umbrella.h"
+
+  export *
+  module * { export * }
+}
