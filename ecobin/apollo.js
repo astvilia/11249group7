@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gql } from '@apollo/client';
 
 //URI of local host apollo server
-const URI = 'http://0.0.0.0:4000'
+const URI = 'http://10.75.161.135:4000'
 
 const httpLink = createHttpLink({
   uri: URI,

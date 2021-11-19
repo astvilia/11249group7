@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "client": "cd ecobin && npm start",
+        "server": "cd API && npm start",
+        "start": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "dependencies": {
+        "concurrently": "^6.4.0"
+    }
+}
