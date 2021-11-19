@@ -3,9 +3,15 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#000000',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: 'white',
     },
   
     buttonContainer: {
@@ -15,14 +21,14 @@ const styles = StyleSheet.create({
     image: {
         flex: 0.5,
         resizeMode: 'contain',
-        marginBottom: 80,
+        margin: 40,
     },
   
     inputView: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#000000',
         borderRadius: 30,
-        borderWidth: 2,
-        borderColor: '#000000',
+        borderWidth: 1,
+        borderColor: '#1a714f',
         width: '70%',
         height: 45,
         marginBottom: 20,
@@ -31,7 +37,7 @@ const styles = StyleSheet.create({
     },
   
     TextInput: {
-        color: 'black',
+        color: 'white',
         height: 50,
         flex: 0.8,
         padding: 10,
@@ -45,8 +51,8 @@ const styles = StyleSheet.create({
   
     loginBtn: {
         borderRadius: 100,
-        borderWidth: 2,
-        borderColor: 'black',
+        borderWidth: 1,
+        borderColor: '#777777',
         height: 50,
         width: 125,
         alignItems: 'center',
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginRight: 20,
         marginLeft: 20,
-        backgroundColor: '#228B22',
+        backgroundColor: '#1a714f',
     },
   
     loginText: {

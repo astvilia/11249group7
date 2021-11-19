@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
- 
+import { Dimensions, StyleSheet } from 'react-native'
+
 const styles = StyleSheet.create({
    container: {
      flex: 1,
@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
      flexDirection: 'row',
      width: '100%',
      padding: 10,
+     borderBottomWidth: 2,
+     borderColor: 'black',
+     alignItems: 'center',
+     justifyContent: 'center',
    },
    iconContainer: {
      width: 80,
@@ -17,18 +21,26 @@ const styles = StyleSheet.create({
      justifyContent: 'center',
      alignItems: 'center',
      borderRadius: 5,
-     backgroundColor: '#404040',
+     backgroundColor: '#222222',
      marginRight: 10,
+   },
+   imageStyle: {
+     width: '100%',
+     height: '100%',
+     resizeMode: 'contain',
    },
    name: {
      fontSize: 20,
      marginRight: 5,
-     color: 'black',
+     color: 'white',
+     textAlign: 'center',
+     flex: 0.7,
    },
    expDate: {
+     fontWeight: 'bold',
      color: 'red',
-     textAlign: 'right',
-     flex: 1,
+     textAlign: 'center',
+     flex: 0.3,
    },
  })
  

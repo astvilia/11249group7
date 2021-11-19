@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 const AddItemButton = ({ onAdd }) => {
   return (
   <TouchableOpacity style={styles.iconContainer} onPress={onAdd}>
-    <AntDesign name="pluscircleo" size={60} color="black" />
+    <AntDesign name="pluscircleo" size={55} color="white" />
   </TouchableOpacity>
   )
 }

@@ -4,48 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, Image, ActivityIndicator, Aler
 import { useMutation, gql } from "@apollo/client";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "./styles";
-
-//The API call for signing in
-const SIGN_IN_MUTATION = gql`
-  mutation signIn($email: String!, $password: String!) {
-    signIn(input: { email: $email, password: $password}) {
-      token
-      user {
-        id
-        email
-      }
-    }
-  }
-`
-
-//The API call for signing up
-const SIGN_UP_MUTATION = gql`
-  mutation signUp(
-    $email: String!,
-  $password:String!) {
-    signUp(input: {
-      email: $email,
-      password: $password,
-    }) {
-      token
-      user {
-        id
-      }
-    }
-  }
-`
-
-//The API call for creating the fridge when signing up
-const CREATE_FRIDGE_MUTATION = gql`
-  mutation createFridge {
-    createFridge {
-      id
-      users {
-        id
-      }
-    }
-  }
-`
+import { CREATE_FRIDGE_MUTATION, SIGN_IN_MUTATION, SIGN_UP_MUTATION } from '../../apollo';
 
 //Login Screen
 export default function LoginScreen({ navigation }) {
@@ -111,16 +70,18 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       
+      <Text style={styles.title}>EcoBin</Text>
+
       {/*The logo*/}
-      <Image style={styles.image} source={require('../../assets/EcoBin.png')} />
+      <Image style={styles.image} source={require('../../assets/EcoBin-BlackBack.png')} />
       
       {/*Input for the email*/}
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder='Email'
+          placeholder='Username'
           placeholderTextColor='#777777'
           onChangeText={(email) => setEmail(email)}
         />
@@ -138,9 +99,11 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       {/*Forgot password button*/}
+      {/*
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
+      */}
 
       {/*Container for login and sign up buttons*/}
       <View style={styles.buttonContainer}>
