@@ -33,7 +33,7 @@ const typeDefs = gql`
     deleteFridge(fridgeId: ID!): Boolean!
     addUserToFridge(fridgeId: ID!, userId: ID!): Fridge
 
-    addItem(name: String!, expDate: String!, fridgeId: ID!): Item!
+    addItem(name: String!, expDate: String!, imageLink: String, fridgeId: ID!): Item!
     updateItem(itemId: ID!, newName: String!, newExpDate: String!): Item!
     deleteItem(itemId: ID!): Boolean!
   }
@@ -64,6 +64,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     expDate: String!
+    imageLink: String
     fridge: Fridge!
   }
 `;
@@ -173,13 +174,14 @@ const resolvers = {
       await db.collection('Fridges').deleteOne({ _id: ObjectID(fridgeId) });
       return true;
     },
-    addItem: async (_, { name, expDate, fridgeId }, { db, user }) => {
+    addItem: async (_, { name, expDate, imageLink, fridgeId }, { db, user }) => {
       if (!user) {
         throw new Error('Authentication error. Please sign in')
       }
       const newItem = {
         name,
         expDate,
+        imageLink,
         fridgeId: ObjectID(fridgeId)
       }
       const fridge = await db.collection('Fridges').findOne({ _id: ObjectID(fridgeId) });
